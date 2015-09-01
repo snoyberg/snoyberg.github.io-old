@@ -1,0 +1,27 @@
+<section>
+    <h1>Strengths
+
+    <ul>
+        <li>Mature, well designed language
+        <li>Well rounded library ecosystem (web, parsing, streaming data, mathematical, much more)
+        <li>Powerful concurrency/parallelism stor
+        <li>Refactor with impunity (use the types, Luke!)
+        <li>Team collaboration is much easier too
+        <li>Amazing Javascript backend
+
+<section>
+    <h1>Weaknesses
+
+    <ul>
+        <li>Doesn't integrate well with existing JVM and .NET deployments
+        <li>GUIs can be a bit of a pain (situation is improving, and web UIs are a good option)
+        <li>Compiling to mobile devices still a bit involved
+
+<section>
+    <h1>Dispelling Myths
+
+    <ul>
+        <li>
+            \<b>Category theory not required</b> Haskell has a strong theoretical foundation, but you don't need to understand that to use it
+            <blockquote>Haskell is the world's finest imperative programming language
+        <li><b>Build tools are difficult</b> FP Complete and other Commercial Haskell members have put a lot of work into fixing this in the past few years: Stackage, LTS Haskell, stack

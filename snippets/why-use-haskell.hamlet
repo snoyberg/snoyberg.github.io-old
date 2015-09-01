@@ -1,0 +1,40 @@
+<section>
+    <h1>Why use Haskell?
+    <ul>
+        <li>Productivity
+        <li>Reliability
+        <li>Efficiency
+
+<section>
+    <h1>Why use Haskell?
+    <h2>Productivity
+
+    <p>Short, expressive code leads to programmer efficiency
+
+    <ul>
+        <li>Engineers: it's more fun to read and write!
+        <li>Managers: quicker time to market
+        <li>Compare with: Ruby, Python
+
+<section>
+    <h1>Why use Haskell?
+    <h2>Reliability
+
+    <p>Expressing invariants at the type level means less runtime bugs
+
+    <ul>
+        <li>Engineers: less debugging-production-system nightmares
+        <li>Managers: easier support tail for sold software
+        <li>Compare with: Ada
+
+<section>
+    <h1>Why use Haskell?
+    <h2>Efficiency
+
+    <p>Compiled, optimized code is fast, especially given high level structures
+
+    <ul>
+        <li>Everyone: faster == better
+        <li>Compare with: Java (about same performance)
+
+    <p>Note: Haskell, Java, and others offer many opportunities to go even lower level to get higher performance. In general, I'll talk about production-quality, high level Haskell code

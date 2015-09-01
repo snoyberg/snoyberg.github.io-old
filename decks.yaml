@@ -1,0 +1,17 @@
+template: template.hamlet
+snippets-dir: snippets
+output-dir: generated
+
+decks:
+- author: Michael Snoyman
+  title: Haskell in Enterprise
+  presenter: Michael Snoyman, Director of Engineering, FP Complete
+  event: Tel Aviv Haskellers meetup, August 30, 2015
+  slug: 2015-08-30-tel-aviv-haskell-in-enterprise
+  slides:
+  - who-am-i
+  - why-use-haskell
+  - who-uses-haskell
+  - strengths-weaknesses-myths
+  - adopting
+  - questions
