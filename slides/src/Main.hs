@@ -9,8 +9,7 @@ import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
 import ClassyPrelude
 import Data.Aeson
 import Data.Yaml
-import Text.Hamlet
-import Text.Hamlet.RT
+import Text.Hamlet.Runtime
 import System.Directory (canonicalizePath, createDirectoryIfMissing)
 import System.FilePath (takeDirectory)
 import Data.Void
@@ -46,14 +45,6 @@ instance (filepath ~ Text) => FromJSON (Config filepath) where
         <*> o .: "output-dir"
         <*> o .: "decks"
 
-readHamletFile :: FilePath -> IO HamletRT
-readHamletFile fp = do
-    bs <- readFile fp
-    parseHamletRT defaultHamletSettings $ unpack $ asText $ decodeUtf8 bs
-
-renderHamlet :: MonadThrow m => HamletRT -> HamletMap Void -> m Html
-renderHamlet rt m = renderHamletRT rt m $ \x _ -> absurd x
-
 main :: IO ()
 main = do
     args <- getArgs
@@ -66,20 +57,21 @@ main = do
     config0 <- decodeFileEither configFP >>= either throwM return
     let Config {..} = fmap ((takeDirectory configFP </>) . unpack) config0
     createDirectoryIfMissing True configOutputDir
-    template <- readHamletFile configTemplate
+    template <- readHamletTemplateFile defaultHamletSettings configTemplate
     forM_ configDecks $ \Deck {..} -> do
         slides <- forM deckSlides $ \slide -> do
-            rt <- readHamletFile $ configSnippets </> unpack slide <.> "hamlet"
-            renderHamlet rt []
-        let m =
-                [ (["autogenWarning"], HDHtml "NOTE: This file was autogenerating, do not edit!")
-                , (["title"], HDHtml $ toHtml deckTitle)
-                , (["author"], HDHtml $ toHtml deckAuthor)
-                , (["presenter"], HDHtml $ toHtml deckPresenter)
-                , (["event"], HDHtml $ toHtml deckEvent)
-                , (["slides"], HDList $ map (\s -> [([], HDHtml s)]) $ unpack slides)
+            rt <- readHamletTemplateFile defaultHamletSettings
+                $ configSnippets </> unpack slide <.> "hamlet"
+            renderHamletTemplate rt mempty
+        let m = mapFromList
+                [ ("autogenWarning", "NOTE: This file was autogenerating, do not edit!")
+                , ("title", toHamletData deckTitle)
+                , ("author", toHamletData deckAuthor)
+                , ("presenter", toHamletData deckPresenter)
+                , ("event", toHamletData deckEvent)
+                , ("slides", toHamletData $ map toHamletData $ unpack slides)
                 ]
-        html <- renderHamlet template m
+        html <- renderHamletTemplate template m
         let dest = configOutputDir </> unpack deckSlug <.> "html"
         putStrLn $ "Generating " ++ deckSlug
         writeFile dest $ renderHtml html
