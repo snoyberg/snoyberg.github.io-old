@@ -15,3 +15,20 @@ decks:
   - strengths-weaknesses-myths
   - adopting
   - questions
+
+decks:
+- author: Michael Snoyman
+  title: Haskell for fast, concurrent, robust services
+  presenter: Michael Snoyman, Director of Engineering, FP Complete
+  event: Twitter tech talk, November 10, 2015
+  slug: 2015-11-10-twitter-haskell-fast-concurrent-robust-services
+  slides:
+  - twitter-2015/what-is-haskell
+  - twitter-2015/overview
+  - twitter-2015/single-core-performance
+  - twitter-2015/concurrency
+  - twitter-2015/abstractions
+  - twitter-2015/robust
+  - twitter-2015/goodness
+  - twitter-2015/getting-started
+  - questions

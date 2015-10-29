@@ -1,0 +1,9 @@
+<h1>What is Haskell?
+
+<ul>
+    <li>Strongly and statically typed
+    <li>Purely functional/explicit side effects
+    <li>Immutable by default
+    <li>Compiles to native code
+    <li>Multithreaded runtime
+    <li>Playground for interesting optimizations (rewrite rules)

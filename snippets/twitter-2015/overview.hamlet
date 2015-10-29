@@ -1,0 +1,11 @@
+<h1>What we'll cover today
+
+<p>What makes Haskell great for writing network services?
+
+<ul>
+    <li>Efficient single-core performance
+    <li>Powerful concurrency story
+    <li>Great abstractions
+    <li>Tools for writing robust code
+    <li>Some miscellaneous goodness
+    <li>How to get started

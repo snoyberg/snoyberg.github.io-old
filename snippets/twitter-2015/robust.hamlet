@@ -1,0 +1,6 @@
+<h1>Robust
+
+<ul>
+    <li>Static/strong typing makes your code easier to refactor and maintain
+    <li>Restricted side effects makes your code easier to test, and encourages a good coding style
+    <li>Immutable data structures avoid common problems like race conditions and deadlocks

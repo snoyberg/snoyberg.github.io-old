@@ -1,0 +1,62 @@
+<section>
+    <h1>Concurrency
+
+<section>
+    <h1>Green threads
+
+    <ul>
+        <li>Lightweight threads in the Haskell runtime
+        <li>Mapped to actual system threads/cores by scheduler
+        <li>Uses evented (per-OS) system calls to wake up threads
+        <li>Result: code against blocking APIs, callback magic happens for you automatically!
+
+<section>
+    <h1>Low-level example
+
+    <pre>
+        <code>FIXME
+
+<section>
+    <h1>Immutable-by-default
+
+    <ul>
+        <li>Shared mutable state is hard
+        <li>Make it easy: data is immutable by default!
+        <li>Mutable variables available as necessary
+        <li>Explicitly decide what kind of mutable variables you want (<code>IORef</code>, <code>MVar</code>, <code>TVar</code>)
+        <li>Focus your attention on the few mutable pieces of the system
+
+<section>
+    <h1>Explicit side effects
+
+    <ul>
+        <li>Function of type <code>Int -&gt; String</code> does not modify the world
+        <li>Allows for some almost-free parallelism (e.g., <code>parMap</code>)
+        <li>Also opens the door for Software Transactional Memory (STM)
+        <li>Not to mention: makes your code easier to understand and maintain
+
+<section>
+    <h1>STM example
+
+    <pre>
+        <code>FIXME
+
+<section>
+    <h1>The async package
+
+    <ul>
+        <li>Futures on steroids
+        <li>Codifies many best practices
+        <li>Handles cases you didn't even know you had to worry about (like exceptions)
+        <li>Simple helper functions like <code>race</code> and <code>both</code>
+        <li>Applicative interface (via <code>Concurrency</code>)
+
+<section>
+    <h1>Network-based concurrency
+
+    <ul>
+        <li><a href="https://www.stackage.org/package/warp">Warp</a> web server library (fast, concurrent, HTTP2)
+        <li>Many web frameworks based on Warp (Yesod, Servant, Scotty, Spock)
+        <li><a href="https://www.stackage.org/package/conduit-extra">Data.Conduit.Network</a>
+        <li><a href="https://www.stackage.org/package/pipes-network">pipes-network</a>
+        <li><a href="https://www.stackage.org/package/connection">connection</a> (easy TLS support)

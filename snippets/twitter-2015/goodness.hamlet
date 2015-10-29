@@ -1,0 +1,6 @@
+<h1>Miscellaenous goodness
+
+<ul>
+    <li>Parametric polymorphism
+    <li>Avoid boilerplate! Generics, Scrap your Boilerplate, Template Haskell
+    <li>Test with confidence: QuickCheck, tasty, hspec

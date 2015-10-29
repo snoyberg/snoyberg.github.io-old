@@ -1,0 +1,31 @@
+<section>
+    <h1>Getting started
+
+    <ul>
+        <li>Use <a href="http://haskellstack.com">the Stack build tool</a>
+        <li>Handles projects, installs necessary tools (including GHC), easy to learn
+        <li>Lots of learning resources
+            <ul>
+                <li>
+                    <a href="https://github.com/commercialhaskell/haskelldocumentation">Haskell Documentation project
+                <li>
+                    <a href="http://schoolofhaskell.com">School of Haskell
+                <li>
+                    <a href="http://www.haskellforall.com/2015/10/basic-haskell-examples.html">Gabriel's basic Haskell examples
+                <li>
+                    <a href="http://dohaskell.com">Do Haskell (collection of papers and tutorials)
+                <li>
+                    <a href="http://www.haskellbook.com/">Haskell Programming from First Principles
+
+<section>
+    <h1>Write scripts!
+
+    <p>Easy way to get started
+
+    <pre>
+        <code>
+            #!/usr/bin/env stack
+            -- stack --resolver lts-3.2 --install-ghc runghc --package turtle
+            {-# LANGUAGE OverloadedStrings #-}
+            import Turtle
+            main = echo "Hello World!"

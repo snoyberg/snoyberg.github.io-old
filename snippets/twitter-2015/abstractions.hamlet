@@ -1,0 +1,38 @@
+<section>
+    <h1>Abstractions
+
+<section>
+    <h1>Mathematical type classes
+
+    <ul>
+        <li>Laws allow you to reason about code
+        <li>Can also expose optimizations opportunities
+        <li>Example:
+            <ul>
+                <li>monoidal append is associative
+                <li>builders prefer right-association
+                <li>we know it's always safe to make that transformation
+
+<section>
+    <h1>Commonly used type classes
+
+    <ul>
+        <li>Functor/Applicative/Monad
+        <li>Semigroup/Monoid
+        <li>Foldable/Traversable
+        <li>But wait, there's more! <a href="https://wiki.haskell.org/Typeclassopedia">Typeclassopedia</a>
+
+<section>
+    <h1>Streaming data
+
+    <ul>
+        <li>conduit and pipes libraries
+        <li>Authors of each are in this room
+        <li>Focus on your algorithm, not the low-level details of moving data around
+        <li>Highly composable
+
+<section>
+    <h1>Conduit example
+
+    <pre>
+        <code>FIXME

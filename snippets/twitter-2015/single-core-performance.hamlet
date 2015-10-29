@@ -1,0 +1,125 @@
+<section>
+    <h1>Single Core Performance
+
+<section>
+    <h1>Tuned for immutable data
+
+    <ul>
+        <li>Haskell encourages immutable data
+        <li>Garbage collector highly tuned for such workloads (generational, copying)
+        <li>New data goes into a nursery
+        <li>Temporary data gets garbage collected quickly
+
+<section>
+    <h1>Data Unpacking
+
+    <p>How much memory does it take to store the following? (Assume 64-bit)
+
+    <pre>
+        <code>data Foo = Foo Int Int
+
+    <p><code>Foo</code> constructor (8 bytes), 2 * (pointer to <code>Int</code> (8), <code>Int</code> constructor (8), raw <code>Int</code> (8)) == 56 bytes
+
+    <pre>
+        <code>data Foo = Foo {-# UNPACK #-} !Int {-# UNPACK #-} !Int
+
+    <p><code>Foo</code> constructor (8), 2 * (raw <code>Int</code> (8)) == 24 bytes
+
+    <p>Note: UNPACK pragmas aren't necessary for small data types, just strictness (<code>!</code>)
+
+<section>
+    <h1>Nested unpacked data
+
+    <p>Unpacking also works for larger values!
+
+    <pre>
+        <code>
+            data Foo = Foo !Int !Int
+            data Bar = Bar {-# UNPACK #-} !Foo !Int
+
+    <ul>
+        <li>For now, only works for single-constructor data types
+        <li>Do you want lazy or strict data?
+        <li>In practice: strict data often a good choice
+        <li>Side benefits: much harder to create a space leak
+
+<section>
+    <h1>Vectors
+
+    <ul>
+        <li>Contiguous memory collections
+        <li>Avoid cons-cell overhead
+        <li>Think: <code>std::list</code> vs <code>std::vector</code>
+        <li>Both mutable and immutable variants
+        <li>Implement mutable algorithms safely via <code>ST</code> monad
+        <li>Boxed, unboxed, and storable (C-FFI compatible) representations
+
+<section>
+    <h1>Vectors (cont)
+
+    <ul>
+        <li>Simple API based on common list functions (<code>map</code>, <code>fold</code>, <code>filter</code>, etc)
+        <li>Implements common Haskell abstractions like <code>Foldable</code> and <code>Traversable</code>
+        <li>Stream fusion (more on that in a moment)
+        <li>New tutorial: <a style="word-break:break-all" href="https://github.com/commercialhaskell/haskelldocumentation/blob/master/content/vector.md">https://github.com/commercialhaskell/haskelldocumentation/blob/master/content/vector.md</a>
+
+<section>
+    <h1>Stream fusion
+
+    <p>How much memory does the following code use?
+
+    <pre>
+        <code>
+            import qualified Data.Vector.Unboxed as V
+            main = print $ V.sum $ V.enumFromTo 1 (10^9 :: Int)
+
+    <ul>
+        <li>Without optimizations: ~8GB
+        <li>With optimizations: ~52KB
+        <li>GHC optimizes this down to a tight inner loop without any actual vector
+        <li>Is GHC itself actually that smart? No, not really...
+
+<section>
+    <h1>Rewrite rules
+
+    <ul>
+        <li>Tell GHC that certain expressions can be rewritten as something else
+        <li>
+            <code>map f . map g = map (f . g)
+        <li>Takes advantage of Haskell's purity
+        <li>Provides library authors with ability to create new optimizations without hacking on the compiler
+        <li>Typically promotes lots of inlining (downside: optimized executables tend to be large)
+
+<section>
+    <h1>Demonstration: efficient statistics calculation
+
+    <p>
+        <a href="FIXME">Stepping away from the slides for a moment
+
+<section>
+    <h1>Builders
+
+    <ul>
+        <li>Buffer-filling actions for creating byte arrays and text
+        <li>Minimal buffer copying
+        <li>Composable (via <code>Monoid</code>)
+        <li>Easy to do the right thing
+        <li>Highly tuned by real-world data and testing
+        <li>Good trade-off between memory copying and extra syscalls (e.g., Warp HTTP server)
+
+<section>
+    <h1>Great example libraries
+
+    <ul>
+        <li>
+            <a href="https://www.stackage.org/package/vector">vector
+        <li>
+            <a href="https://www.stackage.org/package/unordered-containers">unordered-containers
+        <li>
+            <a href="https://www.stackage.org/package/bytestring">bytestring
+        <li>
+            <a href="https://www.stackage.org/package/text">text
+        <li>
+            <a href="https://www.stackage.org/package/conduit">conduit
+        <li>
+            <a href="https://www.stackage.org/package/pipes">pipes
