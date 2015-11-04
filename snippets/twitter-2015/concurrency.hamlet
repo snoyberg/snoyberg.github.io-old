@@ -14,7 +14,19 @@
     <h1>Low-level example
 
     <pre>
-        <code>FIXME
+        <code>
+            {-# LANGUAGE OverloadedStrings #-}
+            import Data.Streaming.Network
+            import Control.Monad
+            import Control.Concurrent
+            \
+            main :: IO ()
+            main = runTCPServer (serverSettingsTCP 4500 "*") $ \ad ->
+            \    forever $ do
+            \        bs <- appRead ad
+            \        print $ "Received: " ++ show bs
+            \        appWrite ad "Now I'm going to delay...\n"
+            \        threadDelay 1000000
 
 <section>
     <h1>Immutable-by-default
@@ -39,7 +51,23 @@
     <h1>STM example
 
     <pre>
-        <code>FIXME
+        <code>
+            \import Control.Concurrent.STM
+            \import Control.Concurrent.Async
+            \main = do
+            \    alice <- newTVarIO 50
+            \    bob <- newTVarIO 50
+            \    runConcurrently $
+            \        Concurrently (transfer 60 alice bob) *>
+            \        Concurrently (transfer 30 bob alice) *>
+            \        Concurrently (transfer 40 bob alice)
+            \  where
+            \    transfer amt srcVar dstVar = atomically $ do
+            \        modifyTVar dstVar (+ amt) -- yes, even this position works!
+            \        srcOrig <- readTVar srcVar
+            \        let srcNew = srcOrig - amt
+            \        check (srcNew >= 0)
+            \        writeTVar srcVar srcNew
 
 <section>
     <h1>The async package

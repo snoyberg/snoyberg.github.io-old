@@ -35,4 +35,12 @@
     <h1>Conduit example
 
     <pre>
-        <code>FIXME
+        <code>
+            \import Conduit
+            \import qualified Data.Text as T
+            \
+            \main :: IO ()
+            \main = stdinC
+            \    $$ mapC T.toUpper
+            \    =$ filterCE (/= 'E')
+            \    =$ stdoutC
